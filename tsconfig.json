@@ -1,0 +1,19 @@
+{
+    "include": ["*.ts"],
+	"compilerOptions": {
+		"module": "nodenext",
+		"target": "esnext",
+		"lib": ["ESNext"],
+		"types": ["node"],
+		"noEmit": true,
+		"strict": true,
+		"esModuleInterop": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"newLine": "lf",
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"pretty": true
+	}
+}
