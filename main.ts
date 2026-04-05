@@ -97,7 +97,7 @@ async function parseReceipt(filePath: string, map: ProductMap): Promise<Receipt>
 		}
 		const name = itemMatch[1].trim();
 		if (!(name in map)) {
-			console.warn(`Product "${name}" not found in product map!`);
+			throw new Error(`Product "${name}" not found in product map!`);
 		}
 		items.push({
 			name: map[name] || name,
@@ -145,8 +145,12 @@ async function updateStock(sheets: sheets_v4.Sheets, items: ItemWithTransaction[
 		if (!(item.name in index)) {
 			continue;
 		}
+		if (updates[index[item.name] + 1]) {
+			updates[index[item.name] + 1][0] += item.quantity;
+			continue;
+		}
 		updates[index[item.name] + 1] = [
-			Number(rows[index[item.name]][1] ?? 0),
+			Number(rows[index[item.name]][1] ?? 0) + item.quantity,
 			item.date,
 		];
 		const oldStore = rows[index[item.name]][3];
